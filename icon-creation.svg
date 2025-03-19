@@ -1,0 +1,32 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Hintergrund -->
+  <rect width="512" height="512" rx="80" fill="#333"/>
+  
+  <!-- Kiste mit Ressourcen -->
+  <rect x="96" y="196" width="320" height="220" rx="20" fill="#8B4513"/>
+  <rect x="116" y="216" width="280" height="180" rx="10" fill="#A0522D"/>
+  
+  <!-- Metallbeschläge -->
+  <rect x="106" y="196" width="30" height="20" fill="#555"/>
+  <rect x="376" y="196" width="30" height="20" fill="#555"/>
+  <rect x="106" y="396" width="30" height="20" fill="#555"/>
+  <rect x="376" y="396" width="30" height="20" fill="#555"/>
+  
+  <!-- Ressourcen, die aus der Kiste schauen -->
+  <!-- Gold (Münzen) -->
+  <circle cx="170" cy="240" r="20" fill="#FFD700"/>
+  <circle cx="190" cy="260" r="20" fill="#FFD700"/>
+  <circle cx="150" cy="260" r="20" fill="#FFD700"/>
+  
+  <!-- Magischer Kristall -->
+  <polygon points="280,230 300,250 280,270 260,250" fill="#9370DB"/>
+  <polygon points="280,220 310,250 280,280 250,250" fill="#8A2BE2" fill-opacity="0.6"/>
+  
+  <!-- Schwert -->
+  <rect x="340" y="230" width="10" height="100" fill="#C0C0C0"/>
+  <rect x="330" y="230" width="30" height="20" fill="#964B00"/>
+  
+  <!-- Überschrift -->
+  <rect x="96" y="120" width="320" height="60" rx="10" fill="#222"/>
+  <text x="256" y="165" font-family="Arial, sans-serif" font-size="34" font-weight="bold" fill="#fff" text-anchor="middle">GOBLINSTADT</text>
+</svg>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="de" class="dark-mode">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#222222">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>Goblinstadt Ressourcen Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192x192.png">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Goblinstadt Ressourcen</h1>
+            <div id="offline-status">
+                <span id="status-indicator">Online</span>
+            </div>
+        </header>
+        
+        <!-- Tab Navigation -->
+        <div class="tabs-container">
+            <div class="tabs">
+                <button class="tab-button active" data-category="schlitzohr">Schlitzohr</button>
+                <button class="tab-button" data-category="gelehrter">Magier</button>
+                <button class="tab-button" data-category="wundpfleger">Heiler</button>
+                <button class="tab-button" data-category="knappe">Krieger</button>
+            </div>
+        </div>
+        
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <div id="resources-container" class="resources-compact-grid">
+                <!-- Resources will be generated here -->
+            </div>
+        </div>
+        
+        <footer>
+            <div class="footer-buttons">
+                <button id="reset-button">Zurücksetzen</button>
+                <button id="export-button">Export CSV</button>
+                <button id="import-button">Import CSV</button>
+                <input type="file" id="csv-file-input" accept=".csv" style="display: none;">
+            </div>
+            <div id="install-button" class="hidden">
+                <button>Auf Homescreen installieren</button>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal for editing resources -->
+    <div id="edit-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3 id="edit-resource-name">Ressource</h3>
+            <div class="edit-form">
+                <input type="number" id="edit-resource-value" min="0">
+                <button id="edit-resource-save">Speichern</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+    <script>
+        // Service Worker registrieren
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker erfolgreich registriert: ', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('ServiceWorker Registrierung fehlgeschlagen: ', error);
+                    });
+            });
+        }
+        
+        // Online/Offline-Status anzeigen
+        function updateOnlineStatus() {
+            const statusIndicator = document.getElementById('status-indicator');
+            if (navigator.onLine) {
+                statusIndicator.textContent = 'Online';
+                statusIndicator.className = 'online';
+            } else {
+                statusIndicator.textContent = 'Offline';
+                statusIndicator.className = 'offline';
+            }
+        }
+
+        window.addEventListener('online', updateOnlineStatus);
+        window.addEventListener('offline', updateOnlineStatus);
+        updateOnlineStatus();
+        
+        // Installation auf Homescreen ermöglichen
+        let deferredPrompt;
+        const installButton = document.getElementById('install-button');
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installButton.classList.remove('hidden');
+            
+            installButton.addEventListener('click', () => {
+                installButton.classList.add('hidden');
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('App wurde installiert');
+                    } else {
+                        console.log('App wurde nicht installiert');
+                    }
+                    deferredPrompt = null;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
