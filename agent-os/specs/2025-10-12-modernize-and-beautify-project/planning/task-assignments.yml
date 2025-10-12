@@ -1,0 +1,43 @@
+# Task Assignments for Goblinstadt Resource Manager Modernization
+# Maps task groups from tasks.md to implementer subagents from implementers.yml
+
+task_assignments:
+  - task_group: "Task Group 1: CDN Integration and Service Worker Update"
+    assigned_subagent: "ui-designer"
+    rationale: "Handles HTML modifications for CDN links and Service Worker updates for caching"
+
+  - task_group: "Task Group 2: CSS Variables and Theme Colors"
+    assigned_subagent: "ui-designer"
+    rationale: "Handles CSS custom properties, theme color system, and styling enhancements"
+
+  - task_group: "Task Group 3: Animation Keyframes and Transitions"
+    assigned_subagent: "ui-designer"
+    rationale: "Handles CSS animations, keyframes, and transition utilities"
+
+  - task_group: "Task Group 4: Icon Integration and Card Structure"
+    assigned_subagent: "ui-designer"
+    rationale: "Handles UI component redesign, icon integration, and card styling"
+
+  - task_group: "Task Group 5: Character Class Emblem Integration"
+    assigned_subagent: "ui-designer"
+    rationale: "Handles tab enhancement with emblems and class-themed styling"
+
+  - task_group: "Task Group 6: JavaScript Animation Triggers"
+    assigned_subagent: "ui-designer"
+    rationale: "Handles JavaScript animation logic and interaction enhancements"
+
+  - task_group: "Task Group 7: Enhanced Modal and Button Styling"
+    assigned_subagent: "ui-designer"
+    rationale: "Handles modal and button visual enhancements"
+
+  - task_group: "Task Group 8: Layout Fine-tuning and Responsive Adjustments"
+    assigned_subagent: "ui-designer"
+    rationale: "Handles layout optimization, responsive design, and final polish"
+
+  - task_group: "Task Group 9: Comprehensive Testing and Verification"
+    assigned_subagent: "testing-engineer"
+    rationale: "Handles integration testing, performance testing, and verification"
+
+  - task_group: "Task Group 10: Deployment Preparation"
+    assigned_subagent: "ui-designer"
+    rationale: "Handles final code review, documentation updates, and deployment preparation"

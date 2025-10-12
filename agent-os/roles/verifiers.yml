@@ -1,0 +1,24 @@
+# Verifier Roles Configuration
+# Maps verifier role IDs to their verification capabilities
+
+verifiers:
+  - role_id: frontend-verifier
+    description: Verifies UI components, styling, responsive design, user experience
+    verification_scope:
+      - Visual design accuracy
+      - Responsive layout correctness
+      - CSS implementation
+      - Animation performance
+      - Icon rendering
+      - Accessibility compliance
+      - Cross-browser compatibility
+
+  - role_id: implementation-verifier
+    description: Verifies end-to-end implementation of complete specs
+    verification_scope:
+      - Overall spec compliance
+      - Integration testing results
+      - Performance metrics
+      - Functionality preservation
+      - PWA capabilities
+      - Complete feature verification

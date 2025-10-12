@@ -1,0 +1,24 @@
+# Implementer Roles Configuration
+# Maps implementer role IDs to their capabilities and verifiers
+
+implementers:
+  - role_id: ui-designer
+    description: Handles UI components, views, layouts, styling, responsive design
+    capabilities:
+      - HTML structure modifications
+      - CSS styling and animations
+      - Responsive design implementation
+      - Visual component creation
+      - Icon integration
+      - Layout optimization
+    verified_by: frontend-verifier
+
+  - role_id: testing-engineer
+    description: Handles test files, test coverage, test fixtures, and integration testing
+    capabilities:
+      - Test creation and execution
+      - Integration testing
+      - Performance testing
+      - Browser compatibility testing
+      - Accessibility testing
+    verified_by: implementation-verifier

@@ -1,0 +1,31 @@
+# Task Assignments for Critical Bugfixes - Icons and Re-render
+# Spec: 2025-10-12-critical-bugfixes-icons-and-rerender
+# Generated: 2025-10-12
+
+task_assignments:
+  - task_group: "Task Group 1.1: Fix Invalid Icon Class Names"
+    assigned_subagent: ui-designer
+
+  - task_group: "Task Group 1.2: Enhance Icon Rendering Logic"
+    assigned_subagent: ui-designer
+
+  - task_group: "Task Group 2.1: Create Selective Update Function"
+    assigned_subagent: ui-designer
+
+  - task_group: "Task Group 2.2: Modify Core Update Function"
+    assigned_subagent: ui-designer
+
+  - task_group: "Task Group 3.1: Functional Verification"
+    assigned_subagent: testing-engineer
+
+  - task_group: "Task Group 3.2: Regression Testing"
+    assigned_subagent: testing-engineer
+
+  - task_group: "Task Group 4.1: Cross-Browser Testing"
+    assigned_subagent: testing-engineer
+
+  - task_group: "Task Group 4.2: Performance Benchmarking"
+    assigned_subagent: testing-engineer
+
+  - task_group: "Task Group 4.3: Final Code Review and Cleanup"
+    assigned_subagent: ui-designer
