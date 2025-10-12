@@ -4,8 +4,8 @@
   "description": "Verwaltung der Ressourcen für das Goblinstadt Spiel",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#f5f5f5",
-  "theme_color": "#333333",
+  "background_color": "#0a0a0a",
+  "theme_color": "#1a1a1a",
   "icons": [
     {
       "src": "icon-192x192.png",

@@ -1,4 +1,4 @@
-/* Base styles optimized for iPhone Pro Max (430×930px) */
+/* Base styles optimized for iPhone Pro Max (430×932px) */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -6,47 +6,135 @@
     touch-action: manipulation; /* Verhindert Zoom bei Double-Tap */
 }
 
+/* Enhanced CSS Custom Properties - Erweitert für RPG-Theme */
 :root {
+    /* Basis Text- und Hintergrundfarben */
     --text-color: #333;
+    --text-primary: #333;
+    --text-secondary: #666;
+    --text-muted: #999;
     --bg-color: #f5f5f5;
+    --bg-primary: #f5f5f5;
+    --bg-secondary: #ffffff;
     --card-bg: #fff;
     --header-bg: #fff;
     --border-color: #ddd;
+    --card-border: #ddd;
+
+    /* Button-Farben */
     --btn-reset: #607D8B;
     --btn-edit: #2196F3;
     --btn-inc: #4CAF50;
     --btn-dec: #F44336;
     --modal-bg: rgba(0, 0, 0, 0.7);
     --modal-content-bg: #fff;
+
+    /* Remainder-Farben (beibehalten aus Original) */
     --red-remainder: #ffcccc;
     --yellow-remainder: #ffffcc;
     --green-remainder: #ccffcc;
+
+    /* Shadow System */
     --shadow-color: rgba(0, 0, 0, 0.1);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);
+    --shadow-glow: 0 0 20px rgba(255, 255, 255, 0.1);
+
+    /* Transition System */
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: 400ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --ease-magic: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    /* Font Size Scale */
+    --font-size-xs: 0.7rem;
+    --font-size-sm: 0.8rem;
+    --font-size-base: 0.85rem;
+    --font-size-lg: 0.95rem;
+    --font-size-xl: 1.2rem;
+    --font-size-2xl: 1.5rem;
+
+    /* Spacing Scale (Tailwind-inspired) */
+    --spacing-1: 0.25rem;  /* 4px */
+    --spacing-2: 0.5rem;   /* 8px */
+    --spacing-3: 0.75rem;  /* 12px */
+    --spacing-4: 1rem;     /* 16px */
+    --spacing-5: 1.25rem;  /* 20px */
+    --spacing-6: 1.5rem;   /* 24px */
+
     --tab-inactive: #f8f8f8;
 }
 
+/* Dark Mode mit Enhanced Theming */
 .dark-mode {
+    /* Enhanced Backgrounds mit Gradienten */
     --text-color: #e0e0e0;
+    --text-primary: #e0e0e0;
+    --text-secondary: #b0b0b0;
+    --text-muted: #707070;
     --bg-color: #121212;
-    --card-bg: #1e1e1e;
+    --bg-primary: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    --bg-secondary: #1e1e1e;
+    --card-bg: linear-gradient(145deg, #1e1e1e 0%, #2a2a2a 100%);
     --header-bg: #1a1a1a;
-    --border-color: #333;
+    --border-color: #404040;
+    --card-border: #404040;
+
+    /* Button-Farben angepasst für Dark Mode */
     --btn-reset: #546E7A;
     --btn-edit: #1976D2;
     --btn-inc: #388E3C;
     --btn-dec: #D32F2F;
-    --modal-bg: rgba(0, 0, 0, 0.85);
+    --modal-bg: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.95) 100%);
     --modal-content-bg: #1e1e1e;
+
+    /* Remainder-Farben für Dark Mode (beibehalten) */
     --red-remainder: #5c2626;
     --yellow-remainder: #5c5c26;
     --green-remainder: #265c26;
+
+    /* Enhanced Shadows für Dark Mode */
     --shadow-color: rgba(0, 0, 0, 0.3);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.5);
+    --shadow-glow: 0 0 20px rgba(255, 255, 255, 0.1);
+
     --tab-inactive: #1a1a1a;
+}
+
+/* Character Class Theme Colors */
+:root, .dark-mode {
+    /* Schlitzohr/Rogue - Gold/Yellow Theme */
+    --rogue-primary: #FFD700;
+    --rogue-secondary: #FFA500;
+    --rogue-gradient: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    --rogue-glow: 0 0 20px rgba(255, 215, 0, 0.3);
+
+    /* Gelehrter/Magier/Mage - Purple Theme */
+    --mage-primary: #8A2BE2;
+    --mage-secondary: #9370DB;
+    --mage-gradient: linear-gradient(135deg, #8A2BE2 0%, #9370DB 100%);
+    --mage-glow: 0 0 20px rgba(138, 43, 226, 0.3);
+
+    /* Wundpfleger/Heiler/Healer - Blue Theme */
+    --healer-primary: #1E90FF;
+    --healer-secondary: #4169E1;
+    --healer-gradient: linear-gradient(135deg, #1E90FF 0%, #4169E1 100%);
+    --healer-glow: 0 0 20px rgba(30, 144, 255, 0.3);
+
+    /* Knappe/Krieger/Warrior - Red Theme */
+    --warrior-primary: #DC143C;
+    --warrior-secondary: #B22222;
+    --warrior-gradient: linear-gradient(135deg, #DC143C 0%, #B22222 100%);
+    --warrior-glow: 0 0 20px rgba(220, 20, 60, 0.3);
 }
 
 html, body {
     max-width: 430px;
-    max-height: 930px;
+    max-height: 932px;
     margin: 0 auto;
     overflow: hidden;
 }
@@ -55,12 +143,12 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.2;
     color: var(--text-color);
-    background-color: var(--bg-color);
+    background: var(--bg-color);
     display: flex;
     flex-direction: column;
     height: 100vh;
-    max-height: 930px;
-    -webkit-touch-callout: none; /* Zusätzliche Vorbeugung gegen Zoom */
+    max-height: 932px;
+    -webkit-touch-callout: none;
     -webkit-user-select: none;
     user-select: none;
 }
@@ -69,42 +157,43 @@ body {
     display: flex;
     flex-direction: column;
     height: 100%;
-    max-height: 930px;
+    max-height: 932px;
     width: 100%;
     max-width: 430px;
 }
 
-/* Header - approximately 7% of height */
+/* Header - approximately 55px */
 header {
     text-align: center;
     padding: 4px 0;
     background: var(--header-bg);
-    box-shadow: 0 1px 2px var(--shadow-color);
+    box-shadow: var(--shadow-sm);
     z-index: 10;
-    height: 60px;
-    min-height: 60px;
-    max-height: 60px;
+    height: 55px;
+    min-height: 55px;
+    max-height: 55px;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
 h1 {
+    font-family: 'Cinzel', 'Segoe UI', serif;
     color: var(--text-color);
     font-size: 1.2rem;
     margin-bottom: 2px;
 }
 
-/* Tabs - approximately 5% of height */
+/* Tabs - 45px to accommodate emblems */
 .tabs-container {
     background: var(--header-bg);
     border-bottom: 1px solid var(--border-color);
     position: sticky;
     top: 0;
     z-index: 5;
-    height: 40px;
-    min-height: 40px;
-    max-height: 40px;
+    height: 45px;
+    min-height: 45px;
+    max-height: 45px;
 }
 
 .tabs {
@@ -116,87 +205,232 @@ h1 {
 
 .tab-button {
     flex: 1;
-    padding: 4px 2px;
+    padding: 6px 4px;
     background: var(--tab-inactive);
     border: none;
-    border-bottom: 3px solid transparent;
+    border-bottom: 4px solid transparent;
     cursor: pointer;
     font-weight: bold;
-    transition: all 0.3s;
-    font-size: 0.8rem;
+    transition: all var(--transition-base);
+    font-size: var(--font-size-xs);
     height: 100%;
-    color: var(--text-color);
+    color: var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+}
+
+.tab-emblem {
+    font-size: 1rem;
+    opacity: 0.6;
+    transition: all var(--transition-base);
+}
+
+.tab-text {
+    font-size: var(--font-size-xs);
+    line-height: 1;
 }
 
 .tab-button.active {
-    border-bottom: 3px solid #2196F3;
     background: var(--card-bg);
+    color: var(--text-primary);
+}
+
+.tab-button.active .tab-emblem {
+    opacity: 1;
+    transform: scale(1.1);
 }
 
 .tab-button[data-category="schlitzohr"].active {
-    border-bottom-color: #FFD700;
+    border-bottom-color: var(--rogue-primary);
+}
+
+.tab-button[data-category="schlitzohr"].active .tab-emblem {
+    color: var(--rogue-primary);
+    filter: drop-shadow(0 0 4px var(--rogue-primary));
 }
 
 .tab-button[data-category="gelehrter"].active {
-    border-bottom-color: #8A2BE2;
+    border-bottom-color: var(--mage-primary);
+}
+
+.tab-button[data-category="gelehrter"].active .tab-emblem {
+    color: var(--mage-primary);
+    filter: drop-shadow(0 0 4px var(--mage-primary));
 }
 
 .tab-button[data-category="wundpfleger"].active {
-    border-bottom-color: #1E90FF;
+    border-bottom-color: var(--healer-primary);
+}
+
+.tab-button[data-category="wundpfleger"].active .tab-emblem {
+    color: var(--healer-primary);
+    filter: drop-shadow(0 0 4px var(--healer-primary));
 }
 
 .tab-button[data-category="knappe"].active {
-    border-bottom-color: #DC143C;
+    border-bottom-color: var(--warrior-primary);
 }
 
-/* Tab Content - approximately 80% of height */
+.tab-button[data-category="knappe"].active .tab-emblem {
+    color: var(--warrior-primary);
+    filter: drop-shadow(0 0 4px var(--warrior-primary));
+}
+
+/* Tab Content - Adjusted for new header/tab heights */
 .tab-content {
     flex: 1;
     overflow-y: auto;
     padding: 6px;
-    max-height: calc(100% - 140px); /* Subtract header + tabs + footer height */
+    max-height: calc(100% - 145px); /* Subtract header + tabs + footer */
 }
 
 /* Resource grid for compact display */
 .resources-compact-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
+    gap: 8px;
     height: 100%;
     padding-bottom: 2px;
 }
 
-/* Resource card styling */
+/* Resource card styling - Enhanced with gradients and ornate borders */
 .resource-card {
+    position: relative;
     background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    padding: 5px;
+    border: 2px solid var(--card-border);
+    border-radius: 8px;
+    padding: 8px;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 1px 2px var(--shadow-color);
-    height: calc((100vh - 140px) / 4 - 6px);
-    max-height: 190px;
+    box-shadow: var(--shadow-md), inset 0 0 30px rgba(0, 0, 0, 0.3);
+    transition: all var(--transition-base);
+    height: calc((100vh - 145px) / 4 - 8px);
+    max-height: 180px;
+    overflow: hidden;
+}
+
+/* Ornate border effect */
+.card-ornate-border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 8px;
+    pointer-events: none;
+    opacity: 0.6;
+    z-index: 0;
+}
+
+/* Class-specific card borders with hover effects */
+.resource-card[data-category="schlitzohr"] {
+    border-color: var(--rogue-primary);
+}
+
+.resource-card[data-category="schlitzohr"]:hover {
+    box-shadow: var(--shadow-md), var(--rogue-glow);
+}
+
+.resource-card[data-category="gelehrter"] {
+    border-color: var(--mage-primary);
+}
+
+.resource-card[data-category="gelehrter"]:hover {
+    box-shadow: var(--shadow-md), var(--mage-glow);
+}
+
+.resource-card[data-category="wundpfleger"] {
+    border-color: var(--healer-primary);
+}
+
+.resource-card[data-category="wundpfleger"]:hover {
+    box-shadow: var(--shadow-md), var(--healer-glow);
+}
+
+.resource-card[data-category="knappe"] {
+    border-color: var(--warrior-primary);
+}
+
+.resource-card[data-category="knappe"]:hover {
+    box-shadow: var(--shadow-md), var(--warrior-glow);
 }
 
 .card-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 2px;
-    height: 24px;
+    margin-bottom: 3px;
+    height: 28px;
+    gap: 6px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Resource icon styling with class-colored glow */
+.resource-icon {
+    font-size: 1.2rem;
+    width: 24px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.resource-card[data-category="schlitzohr"] .resource-icon {
+    color: var(--rogue-primary);
+    filter: drop-shadow(0 0 4px var(--rogue-primary));
+}
+
+.resource-card[data-category="gelehrter"] .resource-icon {
+    color: var(--mage-primary);
+    filter: drop-shadow(0 0 4px var(--mage-primary));
+}
+
+.resource-card[data-category="wundpfleger"] .resource-icon {
+    color: var(--healer-primary);
+    filter: drop-shadow(0 0 4px var(--healer-primary));
+}
+
+.resource-card[data-category="knappe"] .resource-icon {
+    color: var(--warrior-primary);
+    filter: drop-shadow(0 0 4px var(--warrior-primary));
 }
 
 .resource-name {
+    flex: 1;
     font-weight: bold;
-    font-size: 0.85rem;
-    color: var(--text-color);
+    font-size: var(--font-size-base);
+    color: var(--text-primary);
 }
 
 .resource-count {
     font-weight: bold;
-    font-size: 0.95rem;
-    color: var(--text-color);
+    font-size: var(--font-size-lg);
+    min-width: 30px;
+    text-align: right;
+}
+
+/* Class-colored resource counts with glow */
+.resource-card[data-category="schlitzohr"] .resource-count {
+    color: var(--rogue-primary);
+    text-shadow: 0 0 8px var(--rogue-primary);
+}
+
+.resource-card[data-category="gelehrter"] .resource-count {
+    color: var(--mage-primary);
+    text-shadow: 0 0 8px var(--mage-primary);
+}
+
+.resource-card[data-category="wundpfleger"] .resource-count {
+    color: var(--healer-primary);
+    text-shadow: 0 0 8px var(--healer-primary);
+}
+
+.resource-card[data-category="knappe"] .resource-count {
+    color: var(--warrior-primary);
+    text-shadow: 0 0 8px var(--warrior-primary);
 }
 
 /* Stack display */
@@ -204,29 +438,31 @@ h1 {
     display: flex;
     align-items: center;
     gap: 2px;
-    margin-bottom: 3px;
-    height: 18px;
+    margin-bottom: 4px;
+    height: 20px;
+    position: relative;
+    z-index: 1;
 }
 
 .stack {
     width: 12px;
-    height: 16px;
+    height: 18px;
     background: var(--btn-inc);
     border-radius: 2px;
-    box-shadow: 0 1px 1px var(--shadow-color);
+    box-shadow: 0 1px 2px var(--shadow-color);
 }
 
 .remainder {
-    padding: 1px 3px;
-    border-radius: 2px;
+    padding: 2px 4px;
+    border-radius: 3px;
     font-weight: bold;
     text-align: center;
-    min-width: 18px;
-    font-size: 0.7rem;
+    min-width: 20px;
+    font-size: var(--font-size-xs);
     color: var(--text-color);
 }
 
-/* Color coding for remainders */
+/* Color coding for remainders - PRESERVED from original */
 .remainder-0-4 {
     background-color: var(--red-remainder);
 }
@@ -245,40 +481,56 @@ h1 {
     flex-direction: column;
     justify-content: flex-end;
     flex: 1;
-    gap: 5px;
-    padding: 4px 0;
+    gap: 4px;
+    padding: 2px 0;
+    position: relative;
+    z-index: 1;
 }
 
 .buttons-row {
     display: flex;
     justify-content: space-between;
     width: 100%;
-}
-
-.quick-buttons {
-    display: flex;
-    flex-wrap: wrap;
     gap: 3px;
-    flex: 1;
 }
 
 .btn {
-    padding: 0px 0px;
+    padding: 0;
     min-width: 32px;
     height: 32px;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
-    transition: all 0.2s;
-    font-size: 0.8rem;
+    transition: all var(--transition-fast);
+    font-size: var(--font-size-sm);
     line-height: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     flex: 1;
     color: white;
-    margin: 4px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Ripple effect on button press */
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+}
+
+.btn:active::before {
+    width: 100%;
+    height: 100%;
 }
 
 .btn:active {
@@ -286,34 +538,59 @@ h1 {
 }
 
 .btn-inc {
-    background-color: var(--btn-inc);
+    background: linear-gradient(145deg, #4CAF50, #45a049);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.btn-inc:hover {
+    background: linear-gradient(145deg, #5CBF60, #4CAF50);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4), 0 0 10px rgba(76, 175, 80, 0.4);
 }
 
 .btn-dec {
-    background-color: var(--btn-dec);
+    background: linear-gradient(145deg, #F44336, #e53935);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.btn-dec:hover {
+    background: linear-gradient(145deg, #FF5346, #F44336);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4), 0 0 10px rgba(244, 67, 54, 0.4);
 }
 
 .edit-btn {
-    background-color: var(--btn-edit);
+    background: linear-gradient(145deg, #2196F3, #1976D2);
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 0.8rem;
+    font-size: var(--font-size-sm);
     height: 32px;
     padding: 0 10px;
-    margin-left: 3px;
+    margin-top: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-weight: bold;
+    transition: all var(--transition-fast);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Footer - approximately 8% of height */
+.edit-btn:hover {
+    background: linear-gradient(145deg, #31A6FF, #2196F3);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4), 0 0 10px rgba(33, 150, 243, 0.4);
+    transform: translateY(-1px);
+}
+
+.edit-btn:active {
+    transform: translateY(0);
+}
+
+/* Footer - approximately 45px */
 footer {
     background: var(--header-bg);
     border-top: 1px solid var(--border-color);
     padding: 6px;
-    min-height: 40px;
+    min-height: 45px;
     display: flex;
     flex-direction: column;
     gap: 6px;
@@ -332,7 +609,7 @@ footer {
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 0.75rem;
+    font-size: var(--font-size-sm);
     flex: 1;
 }
 
@@ -344,7 +621,7 @@ footer {
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 0.75rem;
+    font-size: var(--font-size-sm);
     flex: 1;
 }
 
@@ -386,21 +663,22 @@ footer {
     cursor: pointer;
     font-weight: bold;
     width: 100%;
-    font-size: 0.8rem;
+    font-size: var(--font-size-sm);
 }
 
 .hidden {
     display: none !important;
 }
 
-/* Modal */
+/* Modal - Enhanced with gradients and class theming */
 .modal {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--modal-bg);
+    background: var(--modal-bg);
+    backdrop-filter: blur(4px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -408,67 +686,265 @@ footer {
 }
 
 .modal-content {
-    background-color: var(--modal-content-bg);
-    padding: 15px;
-    border-radius: 8px;
-    width: 80%;
-    max-width: 280px;
+    background: linear-gradient(145deg, #1e1e1e 0%, #2a2a2a 100%);
+    padding: 20px;
+    border-radius: 12px;
+    width: 85%;
+    max-width: 300px;
     position: relative;
-    border: 1px solid var(--border-color);
+    border: 2px solid var(--border-color);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 40px var(--class-primary, var(--text-primary));
+}
+
+.modal-content::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--class-primary, transparent), transparent);
+    border-radius: 12px;
+    z-index: -1;
+    opacity: 0.3;
 }
 
 .close-modal {
     position: absolute;
-    top: 8px;
-    right: 12px;
-    font-size: 20px;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
     cursor: pointer;
-    color: var(--text-color);
+    color: var(--text-primary);
+    transition: all var(--transition-fast);
+}
+
+.close-modal:hover {
+    transform: rotate(90deg);
+    color: var(--class-primary, var(--text-primary));
+    text-shadow: 0 0 10px var(--class-primary, var(--text-primary));
 }
 
 #edit-resource-name {
-    font-size: 1rem;
+    font-size: var(--font-size-xl);
+    font-weight: bold;
     margin-top: 0;
-    margin-bottom: 10px;
-    color: var(--text-color);
+    margin-bottom: 12px;
+    text-align: center;
 }
 
 .edit-form {
     display: flex;
     margin-top: 10px;
-    gap: 5px;
+    gap: 8px;
 }
 
 .edit-form input {
     flex: 1;
-    padding: 6px;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    font-size: 0.9rem;
-    background-color: var(--card-bg);
-    color: var(--text-color);
+    padding: 10px;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1rem;
+    background: linear-gradient(145deg, #1a1a1a, #242424);
+    color: var(--text-primary);
+    text-align: center;
+    font-weight: bold;
+    transition: all var(--transition-base);
+}
+
+.edit-form input:focus {
+    outline: none;
+    border-color: var(--class-primary, var(--btn-edit));
+    box-shadow: 0 0 12px var(--class-primary, var(--btn-edit));
 }
 
 .edit-form button {
-    background-color: var(--btn-edit);
+    background: linear-gradient(145deg, var(--class-primary, var(--btn-edit)), var(--class-primary, #1976D2));
     color: white;
     border: none;
-    padding: 6px 10px;
-    border-radius: 4px;
+    padding: 10px 16px;
+    border-radius: 6px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
+    transition: all var(--transition-base);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Media query for iPhone Pro Max dimensions */
+.edit-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4), 0 0 15px var(--class-primary, var(--btn-edit));
+}
+
+.edit-form button:active {
+    transform: translateY(0);
+}
+
+/* Animation Keyframes - Will be triggered by JavaScript */
+
+/* Count Update Animation */
+@keyframes countUpdate {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.3);
+        text-shadow: 0 0 10px currentColor;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.resource-count.updating {
+    animation: countUpdate 400ms var(--ease-magic);
+}
+
+/* Card Fade-in Animation for tab switching */
+@keyframes fadeSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.resource-card {
+    animation: fadeSlideIn 350ms var(--transition-base);
+    animation-fill-mode: both;
+}
+
+.resource-card:nth-child(1) { animation-delay: 0ms; }
+.resource-card:nth-child(2) { animation-delay: 50ms; }
+.resource-card:nth-child(3) { animation-delay: 100ms; }
+.resource-card:nth-child(4) { animation-delay: 150ms; }
+.resource-card:nth-child(5) { animation-delay: 200ms; }
+.resource-card:nth-child(6) { animation-delay: 250ms; }
+.resource-card:nth-child(7) { animation-delay: 300ms; }
+.resource-card:nth-child(8) { animation-delay: 350ms; }
+
+/* Button Press Animation */
+@keyframes buttonPress {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.92); }
+    100% { transform: scale(1); }
+}
+
+.btn:active {
+    animation: buttonPress 150ms ease-out;
+}
+
+/* Sparkle Effect */
+@keyframes sparkle {
+    0%, 100% {
+        opacity: 0;
+        transform: scale(0) rotate(0deg);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1) rotate(180deg);
+    }
+}
+
+.sparkle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: radial-gradient(circle, currentColor, transparent);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: sparkle 800ms ease-out forwards;
+}
+
+/* Stack Pulse Animation */
+@keyframes stackPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 rgba(76, 175, 80, 0);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 0 8px rgba(76, 175, 80, 0.6);
+    }
+}
+
+.stack.new {
+    animation: stackPulse 600ms ease-out;
+}
+
+/* Modal Fade Animations */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes modalFadeOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+}
+
+.modal:not(.hidden) {
+    animation: modalFadeIn 200ms ease-out;
+}
+
+/* Glow Pulse for remainder changes */
+@keyframes glowPulse {
+    0%, 100% {
+        box-shadow: 0 0 0 transparent;
+    }
+    50% {
+        box-shadow: 0 0 15px currentColor;
+    }
+}
+
+.remainder.changed {
+    animation: glowPulse 500ms ease-out;
+}
+
+/* Transition Utility Classes */
+.transition-all {
+    transition: all var(--transition-base);
+}
+
+.transition-colors {
+    transition: background-color var(--transition-fast),
+                border-color var(--transition-fast),
+                color var(--transition-fast);
+}
+
+.transition-transform {
+    transition: transform var(--transition-base);
+}
+
+.hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Media query for iPhone 16 Pro Max dimensions */
 @media (min-width: 428px) and (min-height: 926px) {
     .resources-compact-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-    
+
     .resource-card {
-        height: calc((930px - 140px) / 4 - 6px);
-        max-height: 190px;
+        height: calc((932px - 145px) / 4 - 8px);
+        max-height: 180px;
     }
 }
 
@@ -477,8 +953,8 @@ footer {
     .resources-compact-grid {
         grid-template-columns: repeat(4, 1fr);
     }
-    
+
     .resource-card {
-        height: calc((100vh - 140px) / 2 - 6px);
+        height: calc((100vh - 145px) / 2 - 8px);
     }
 }

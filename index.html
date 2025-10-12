@@ -7,9 +7,38 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <title>Goblinstadt Ressourcen Manager</title>
+
+    <!-- CDN Resources für modernisierte UI -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rpg-awesome/0.2.0/css/rpg-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- App Styles -->
     <link rel="stylesheet" href="styles.css">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="icon-192x192.png">
+
+    <!-- Tailwind CSS CDN mit Custom Config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'rogue': '#FFD700',
+              'mage': '#8A2BE2',
+              'healer': '#1E90FF',
+              'warrior': '#DC143C',
+            },
+            fontFamily: {
+              'fantasy': ['Cinzel', 'serif'],
+            }
+          }
+        }
+      }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -19,7 +48,7 @@
                 <span id="status-indicator">Online</span>
             </div>
         </header>
-        
+
         <!-- Tab Navigation -->
         <div class="tabs-container">
             <div class="tabs">
@@ -29,14 +58,14 @@
                 <button class="tab-button" data-category="knappe">Krieger</button>
             </div>
         </div>
-        
+
         <!-- Tab Content -->
         <div class="tab-content">
             <div id="resources-container" class="resources-compact-grid">
                 <!-- Resources will be generated here -->
             </div>
         </div>
-        
+
         <footer>
             <div class="footer-buttons">
                 <button id="reset-button">Zurücksetzen</button>
@@ -61,7 +90,7 @@
             </div>
         </div>
     </div>
-    
+
     <script src="app.js"></script>
     <script>
         // Service Worker registrieren
@@ -76,7 +105,7 @@
                     });
             });
         }
-        
+
         // Online/Offline-Status anzeigen
         function updateOnlineStatus() {
             const statusIndicator = document.getElementById('status-indicator');
@@ -92,16 +121,16 @@
         window.addEventListener('online', updateOnlineStatus);
         window.addEventListener('offline', updateOnlineStatus);
         updateOnlineStatus();
-        
+
         // Installation auf Homescreen ermöglichen
         let deferredPrompt;
         const installButton = document.getElementById('install-button');
-        
+
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
             installButton.classList.remove('hidden');
-            
+
             installButton.addEventListener('click', () => {
                 installButton.classList.add('hidden');
                 deferredPrompt.prompt();
