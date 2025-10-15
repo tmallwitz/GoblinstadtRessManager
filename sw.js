@@ -1,5 +1,5 @@
 // Service Worker für Goblinstadt Ressourcen Manager - Fully self-hosted, no CDN dependencies
-const CACHE_NAME = 'goblinstadt-cache-v9';
+const CACHE_NAME = 'goblinstadt-cache-v10';
 const APP_PREFIX = 'goblinstadt-';
 
 // Liste ALLER Ressourcen, die gecacht werden müssen
@@ -28,7 +28,7 @@ const urlsToCache = [
   './assets/vendor/font-awesome/webfonts/fa-solid-900.woff2',
   './assets/vendor/font-awesome/webfonts/fa-v4compatibility.woff2',
   // Self-hosted RPG Awesome
-  './assets/vendor/rpg-awesome/css/rpg-awesome.min.css',
+  './assets/vendor/rpg-awesome/css/rpgawesome.min.css',
   './assets/vendor/rpg-awesome/fonts/rpgawesome-webfont.woff'
 ];
 

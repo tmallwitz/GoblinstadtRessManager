@@ -82,6 +82,83 @@ function getClassColor(category) {
     return colorMap[category] || 'var(--text-primary)';
 }
 
+// Theme Management - MUST run before UI rendering to prevent FOUC
+const THEME_STORAGE_KEY = 'goblinstadt-theme-preference';
+
+// Detect system theme preference using media query
+function getSystemTheme() {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return 'dark';
+    }
+    return 'light';
+}
+
+// Load saved theme preference from localStorage
+function loadThemePreference() {
+    return localStorage.getItem(THEME_STORAGE_KEY);
+}
+
+// Save theme preference to localStorage or remove if null
+function saveThemePreference(theme) {
+    if (theme === null) {
+        localStorage.removeItem(THEME_STORAGE_KEY);
+    } else {
+        localStorage.setItem(THEME_STORAGE_KEY, theme);
+    }
+}
+
+// Apply theme to document by adding/removing dark-mode class and updating meta tag
+function applyTheme(theme) {
+    const html = document.documentElement;
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+
+    if (theme === 'dark') {
+        html.classList.add('dark-mode');
+        if (metaThemeColor) {
+            metaThemeColor.setAttribute('content', '#222222');
+        }
+    } else {
+        html.classList.remove('dark-mode');
+        if (metaThemeColor) {
+            metaThemeColor.setAttribute('content', '#ffffff');
+        }
+    }
+}
+
+// Get current active theme based on dark-mode class
+function getCurrentTheme() {
+    return document.documentElement.classList.contains('dark-mode') ? 'dark' : 'light';
+}
+
+// Toggle between light and dark themes
+function toggleTheme() {
+    const currentTheme = getCurrentTheme();
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    applyTheme(newTheme);
+    saveThemePreference(newTheme);
+}
+
+// Initialize theme on app load - Priority: 1) Saved preference, 2) System preference, 3) Dark mode default
+function initializeTheme() {
+    const savedTheme = loadThemePreference();
+    const themeToApply = savedTheme || getSystemTheme() || 'dark';
+    applyTheme(themeToApply);
+}
+
+// Call immediately to prevent FOUC (Flash of Unstyled Content)
+initializeTheme();
+
+// Listen for system theme changes - only applies if no manual preference exists
+if (window.matchMedia) {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    mediaQuery.addEventListener('change', (e) => {
+        // Only apply system preference if user hasn't manually chosen
+        if (!loadThemePreference()) {
+            applyTheme(e.matches ? 'dark' : 'light');
+        }
+    });
+}
+
 // State variables - Reihenfolge korrigiert
 let activeCategory = 'schlitzohr'; // Default active tab MUSS vor loadState() deklariert werden
 let state = loadState() || initializeState();
@@ -654,4 +731,10 @@ document.addEventListener('DOMContentLoaded', () => {
             renderUI();
         }
     });
+
+    // Setup theme toggle button handler (Task Group 2.6)
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', toggleTheme);
+    }
 });

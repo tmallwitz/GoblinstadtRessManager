@@ -151,6 +151,8 @@ body {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     user-select: none;
+    /* Smooth color transitions for theme switching */
+    transition: background-color var(--transition-base), color var(--transition-base);
 }
 
 .container {
@@ -160,12 +162,13 @@ body {
     max-height: 932px;
     width: 100%;
     max-width: 430px;
+    /* Smooth color transitions for theme switching */
+    transition: background-color var(--transition-base), color var(--transition-base);
 }
 
-/* Header - approximately 55px */
+/* Header - approximately 55px with flexbox layout for theme toggle */
 header {
-    text-align: center;
-    padding: 4px 0;
+    padding: 4px 12px;
     background: var(--header-bg);
     box-shadow: var(--shadow-sm);
     z-index: 10;
@@ -173,15 +176,79 @@ header {
     min-height: 55px;
     max-height: 55px;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    /* Smooth color transitions for theme switching */
+    transition: background-color var(--transition-base), box-shadow var(--transition-base);
 }
 
 h1 {
     font-family: 'Cinzel', 'Segoe UI', serif;
     color: var(--text-color);
     font-size: 1.2rem;
-    margin-bottom: 2px;
+    margin: 0;
+    /* Smooth color transitions for theme switching */
+    transition: color var(--transition-base);
+}
+
+/* Header right section for theme toggle + offline status */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Theme Toggle Button Styles */
+.theme-toggle-btn {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    min-height: 32px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color var(--transition-fast);
+}
+
+.theme-toggle-btn:hover {
+    background: var(--border-color);
+}
+
+.theme-toggle-btn:active {
+    transform: scale(0.95);
+}
+
+.theme-icon {
+    display: block;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-icon::before {
+    font-size: 1.2rem;
+    display: block;
+    transition: color var(--transition-fast);
+}
+
+/* Moon icon for light mode (shows what you'll get when clicking) */
+.theme-icon::before {
+    content: '☽';
+    color: var(--text-primary);
+}
+
+/* Sun icon for dark mode (shows what you'll get when clicking) */
+.dark-mode .theme-icon::before {
+    content: '☀';
+    color: var(--text-primary);
 }
 
 /* Tabs - 45px to accommodate emblems */
@@ -194,6 +261,8 @@ h1 {
     height: 45px;
     min-height: 45px;
     max-height: 45px;
+    /* Smooth color transitions for theme switching */
+    transition: background-color var(--transition-base), border-color var(--transition-base);
 }
 
 .tabs {
@@ -310,6 +379,8 @@ h1 {
     height: calc((100vh - 145px) / 4 - 8px);
     max-height: 180px;
     overflow: hidden;
+    /* Smooth color transitions for theme switching */
+    transition: background-color var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
 }
 
 /* Ornate border effect */
@@ -403,6 +474,8 @@ h1 {
     font-weight: bold;
     font-size: var(--font-size-base);
     color: var(--text-primary);
+    /* Smooth color transitions for theme switching */
+    transition: color var(--transition-base);
 }
 
 .resource-count {
@@ -594,6 +667,8 @@ footer {
     display: flex;
     flex-direction: column;
     gap: 6px;
+    /* Smooth color transitions for theme switching */
+    transition: background-color var(--transition-base), border-color var(--transition-base);
 }
 
 .footer-buttons {
@@ -627,7 +702,6 @@ footer {
 
 /* Offline-Status-Anzeige */
 #offline-status {
-    margin-top: 2px;
     text-align: center;
 }
 
@@ -694,6 +768,8 @@ footer {
     position: relative;
     border: 2px solid var(--border-color);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 40px var(--class-primary, var(--text-primary));
+    /* Smooth color transitions for theme switching */
+    transition: background-color var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
 }
 
 .modal-content::before {

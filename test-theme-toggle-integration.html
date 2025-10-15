@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme Toggle Integration Tests</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-suite {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border-left: 4px solid;
+        }
+        .test-result.pass {
+            background: #e8f5e9;
+            border-color: #4caf50;
+        }
+        .test-result.fail {
+            background: #ffebee;
+            border-color: #f44336;
+        }
+        .test-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .test-message {
+            color: #666;
+            font-size: 0.9em;
+        }
+        #test-summary {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e3f2fd;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-suite">
+        <h1>Theme Toggle Integration Tests</h1>
+        <div id="test-results"></div>
+        <div id="test-summary"></div>
+    </div>
+
+    <script>
+        // Test Framework
+        const testResults = [];
+
+        function test(name, testFn) {
+            try {
+                testFn();
+                testResults.push({ name, status: 'pass', message: 'Test passed' });
+            } catch (error) {
+                testResults.push({ name, status: 'fail', message: error.message });
+            }
+        }
+
+        function assert(condition, message) {
+            if (!condition) {
+                throw new Error(message || 'Assertion failed');
+            }
+        }
+
+        function assertEquals(actual, expected, message) {
+            if (actual !== expected) {
+                throw new Error(message || `Expected ${expected}, but got ${actual}`);
+            }
+        }
+
+        function assertExists(element, message) {
+            if (!element) {
+                throw new Error(message || 'Element does not exist');
+            }
+        }
+
+        function assertHasAttribute(element, attribute, message) {
+            if (!element.hasAttribute(attribute)) {
+                throw new Error(message || `Element does not have attribute: ${attribute}`);
+            }
+        }
+
+        // Load index.html in iframe for testing
+        function loadApp(callback) {
+            const iframe = document.createElement('iframe');
+            iframe.src = './index.html';
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
+
+            iframe.onload = () => {
+                callback(iframe.contentDocument, iframe);
+            };
+        }
+
+        // Run tests
+        loadApp((doc, iframe) => {
+            // Test 1: Theme toggle button exists in DOM
+            test('Theme toggle button exists in DOM', () => {
+                const themeToggle = doc.getElementById('theme-toggle');
+                assertExists(themeToggle, 'Theme toggle button should exist with id="theme-toggle"');
+            });
+
+            // Test 2: Theme toggle button has correct class
+            test('Theme toggle button has correct class', () => {
+                const themeToggle = doc.getElementById('theme-toggle');
+                assertExists(themeToggle);
+                assert(
+                    themeToggle.classList.contains('theme-toggle-btn'),
+                    'Theme toggle button should have class "theme-toggle-btn"'
+                );
+            });
+
+            // Test 3: Theme toggle button has proper ARIA label
+            test('Theme toggle button has proper ARIA label for accessibility', () => {
+                const themeToggle = doc.getElementById('theme-toggle');
+                assertExists(themeToggle);
+                assertHasAttribute(themeToggle, 'aria-label', 'Button should have aria-label attribute');
+                assertEquals(
+                    themeToggle.getAttribute('aria-label'),
+                    'Theme umschalten',
+                    'ARIA label should be "Theme umschalten"'
+                );
+            });
+
+            // Test 4: Theme toggle button contains theme icon span
+            test('Theme toggle button contains theme icon span', () => {
+                const themeToggle = doc.getElementById('theme-toggle');
+                assertExists(themeToggle);
+                const themeIcon = themeToggle.querySelector('.theme-icon');
+                assertExists(themeIcon, 'Theme toggle button should contain a span with class "theme-icon"');
+            });
+
+            // Test 5: Header contains .header-right wrapper
+            test('Header contains .header-right wrapper div', () => {
+                const header = doc.querySelector('header');
+                assertExists(header);
+                const headerRight = header.querySelector('.header-right');
+                assertExists(headerRight, 'Header should contain a .header-right div wrapper');
+            });
+
+            // Test 6: Header layout accommodates toggle without overflow
+            test('Header layout accommodates toggle without overflow', () => {
+                const header = doc.querySelector('header');
+                assertExists(header);
+                const headerRight = header.querySelector('.header-right');
+                assertExists(headerRight);
+
+                // Check that both h1 and .header-right exist in header
+                const h1 = header.querySelector('h1');
+                assertExists(h1, 'Header should contain h1 title');
+
+                // Check that offline status is inside .header-right
+                const offlineStatus = headerRight.querySelector('#offline-status');
+                assertExists(offlineStatus, 'Offline status should be inside .header-right');
+
+                // Check that theme toggle is inside .header-right
+                const themeToggle = headerRight.querySelector('#theme-toggle');
+                assertExists(themeToggle, 'Theme toggle should be inside .header-right');
+            });
+
+            // Test 7: Meta tag for theme-color exists
+            test('Meta tag for dynamic theme-color updates exists', () => {
+                const metaTag = doc.querySelector('meta[name="theme-color"]');
+                assertExists(metaTag, 'Meta tag with name="theme-color" should exist');
+                assert(
+                    metaTag.hasAttribute('content'),
+                    'Meta tag should have content attribute'
+                );
+            });
+
+            // Test 8: HTML element has dark-mode class as default
+            test('HTML element has dark-mode class as default fallback', () => {
+                const html = doc.documentElement;
+                assert(
+                    html.classList.contains('dark-mode'),
+                    'HTML element should have dark-mode class as default fallback'
+                );
+            });
+
+            // Display results
+            displayResults();
+
+            // Clean up
+            setTimeout(() => {
+                document.body.removeChild(iframe);
+            }, 100);
+        });
+
+        function displayResults() {
+            const resultsContainer = document.getElementById('test-results');
+            const summaryContainer = document.getElementById('test-summary');
+
+            // Display individual test results
+            testResults.forEach(result => {
+                const resultDiv = document.createElement('div');
+                resultDiv.className = `test-result ${result.status}`;
+                resultDiv.innerHTML = `
+                    <div class="test-name">${result.status === 'pass' ? '✓' : '✗'} ${result.name}</div>
+                    <div class="test-message">${result.message}</div>
+                `;
+                resultsContainer.appendChild(resultDiv);
+            });
+
+            // Display summary
+            const passed = testResults.filter(r => r.status === 'pass').length;
+            const failed = testResults.filter(r => r.status === 'fail').length;
+            const total = testResults.length;
+
+            summaryContainer.innerHTML = `
+                Tests: ${passed}/${total} passed, ${failed} failed
+            `;
+            summaryContainer.style.background = failed === 0 ? '#e8f5e9' : '#ffebee';
+        }
+    </script>
+</body>
+</html>

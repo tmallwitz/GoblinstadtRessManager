@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme CSS Tests</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .test-pass {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .test-fail {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .test-info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .controls {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        #run-tests {
+            background: #007bff;
+            color: white;
+        }
+        #toggle-theme {
+            background: #6c757d;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Theme Toggle CSS Tests</h1>
+    <p>Tests for Task 1.1: CSS Theme Functionality</p>
+
+    <div class="controls">
+        <button id="run-tests">Run All Tests</button>
+        <button id="toggle-theme">Toggle Theme (for Manual Testing)</button>
+    </div>
+
+    <div id="test-results"></div>
+
+    <!-- Test Elements -->
+    <div id="test-container" style="display: none;">
+        <div class="container"></div>
+        <div class="resource-card"></div>
+        <div class="modal-content"></div>
+        <header></header>
+        <footer></footer>
+        <button class="theme-toggle-btn">
+            <span class="theme-icon"></span>
+        </button>
+        <div class="header-right"></div>
+    </div>
+
+    <script>
+        const results = [];
+
+        function logResult(testName, passed, message) {
+            results.push({ testName, passed, message });
+        }
+
+        function displayResults() {
+            const container = document.getElementById('test-results');
+            container.innerHTML = '';
+
+            const summary = document.createElement('div');
+            summary.className = 'test-info';
+            const passCount = results.filter(r => r.passed).length;
+            const totalCount = results.length;
+            summary.innerHTML = `<strong>Test Summary:</strong> ${passCount} of ${totalCount} tests passed`;
+            container.appendChild(summary);
+
+            results.forEach(result => {
+                const section = document.createElement('div');
+                section.className = 'test-section';
+
+                const resultDiv = document.createElement('div');
+                resultDiv.className = `test-result ${result.passed ? 'test-pass' : 'test-fail'}`;
+                resultDiv.innerHTML = `
+                    <strong>${result.testName}:</strong> ${result.passed ? 'PASS' : 'FAIL'}<br>
+                    ${result.message}
+                `;
+
+                section.appendChild(resultDiv);
+                container.appendChild(section);
+            });
+        }
+
+        // Test 1: Dark mode class applies dark theme colors
+        function testDarkModeColors() {
+            const html = document.documentElement;
+            const body = document.body;
+
+            // Add dark mode class
+            html.classList.add('dark-mode');
+
+            // Get computed styles
+            const computedStyle = getComputedStyle(body);
+            const bgColor = computedStyle.backgroundColor;
+            const textColor = computedStyle.color;
+
+            // Check if dark mode colors are applied (should be dark background)
+            const isDarkBackground = bgColor.includes('18, 18, 18') || bgColor.includes('rgb(18, 18, 18)');
+            const isLightText = textColor.includes('224, 224, 224') || textColor.includes('rgb(224, 224, 224)');
+
+            logResult(
+                'Test 1: Dark Mode Colors',
+                isDarkBackground && isLightText,
+                `Background: ${bgColor}, Text: ${textColor}. Expected dark background (#121212) and light text (#e0e0e0).`
+            );
+
+            // Remove dark mode for next test
+            html.classList.remove('dark-mode');
+        }
+
+        // Test 2: Theme toggle button renders correctly in both themes
+        function testToggleButtonRendering() {
+            const html = document.documentElement;
+            const toggleBtn = document.querySelector('.theme-toggle-btn');
+            const themeIcon = document.querySelector('.theme-icon');
+
+            if (!toggleBtn || !themeIcon) {
+                logResult(
+                    'Test 2: Toggle Button Rendering',
+                    false,
+                    'Theme toggle button or icon not found in DOM'
+                );
+                return;
+            }
+
+            // Test in light mode
+            html.classList.remove('dark-mode');
+            let iconContent = getComputedStyle(themeIcon, '::before').content;
+            const lightModeIcon = iconContent.includes('☽') || iconContent.includes('9789');
+
+            // Test in dark mode
+            html.classList.add('dark-mode');
+            iconContent = getComputedStyle(themeIcon, '::before').content;
+            const darkModeIcon = iconContent.includes('☀') || iconContent.includes('9728');
+
+            logResult(
+                'Test 2: Toggle Button Rendering',
+                lightModeIcon && darkModeIcon,
+                `Light mode shows moon: ${lightModeIcon}, Dark mode shows sun: ${darkModeIcon}`
+            );
+
+            html.classList.remove('dark-mode');
+        }
+
+        // Test 3: Header layout accommodates toggle button
+        function testHeaderLayout() {
+            const header = document.querySelector('header');
+            const headerRight = document.querySelector('.header-right');
+
+            if (!header) {
+                logResult(
+                    'Test 3: Header Layout',
+                    false,
+                    'Header element not found'
+                );
+                return;
+            }
+
+            const headerStyle = getComputedStyle(header);
+            const isFlexbox = headerStyle.display === 'flex' || headerStyle.display.includes('flex');
+
+            // Check if header-right exists and has correct styles
+            let headerRightValid = false;
+            if (headerRight) {
+                const headerRightStyle = getComputedStyle(headerRight);
+                headerRightValid = headerRightStyle.display === 'flex' &&
+                                   headerRightStyle.alignItems === 'center';
+            }
+
+            logResult(
+                'Test 3: Header Layout',
+                isFlexbox || headerRightValid,
+                `Header display: ${headerStyle.display}, Header-right exists: ${!!headerRight}, Valid layout: ${isFlexbox || headerRightValid}`
+            );
+        }
+
+        // Test 4: Color transitions apply smoothly
+        function testColorTransitions() {
+            const body = document.body;
+            const container = document.querySelector('.container');
+            const card = document.querySelector('.resource-card');
+
+            const bodyTransition = getComputedStyle(body).transition;
+            const containerTransition = container ? getComputedStyle(container).transition : '';
+            const cardTransition = card ? getComputedStyle(card).transition : '';
+
+            // Check if transitions include color-related properties
+            const hasBodyTransition = bodyTransition && bodyTransition !== 'all 0s ease 0s';
+            const hasContainerTransition = containerTransition && containerTransition !== 'all 0s ease 0s';
+            const hasCardTransition = cardTransition && cardTransition !== 'all 0s ease 0s';
+
+            const transitionsExist = hasBodyTransition || hasContainerTransition || hasCardTransition;
+
+            logResult(
+                'Test 4: Color Transitions',
+                transitionsExist,
+                `Body transition: ${hasBodyTransition}, Container transition: ${hasContainerTransition}, Card transition: ${hasCardTransition}`
+            );
+        }
+
+        // Test 5: Theme toggle button styles
+        function testToggleButtonStyles() {
+            const toggleBtn = document.querySelector('.theme-toggle-btn');
+
+            if (!toggleBtn) {
+                logResult(
+                    'Test 5: Toggle Button Styles',
+                    false,
+                    'Theme toggle button not found'
+                );
+                return;
+            }
+
+            const styles = getComputedStyle(toggleBtn);
+            const width = parseInt(styles.width);
+            const height = parseInt(styles.height);
+            const isTouchOptimized = width >= 32 && height >= 32;
+            const hasBackground = styles.backgroundColor !== '';
+            const hasBorderRadius = parseFloat(styles.borderRadius) > 0;
+
+            logResult(
+                'Test 5: Toggle Button Styles',
+                isTouchOptimized && hasBorderRadius,
+                `Width: ${width}px, Height: ${height}px, Touch-optimized (>=32px): ${isTouchOptimized}, Border-radius: ${styles.borderRadius}`
+            );
+        }
+
+        // Test 6: CSS custom properties exist
+        function testCSSVariables() {
+            const root = document.documentElement;
+            const html = document.documentElement;
+
+            // Check light mode variables
+            const lightBg = getComputedStyle(root).getPropertyValue('--bg-color').trim();
+            const lightText = getComputedStyle(root).getPropertyValue('--text-color').trim();
+
+            // Add dark mode and check dark mode variables
+            html.classList.add('dark-mode');
+            const darkBg = getComputedStyle(root).getPropertyValue('--bg-color').trim();
+            const darkText = getComputedStyle(root).getPropertyValue('--text-color').trim();
+            html.classList.remove('dark-mode');
+
+            const variablesExist = lightBg !== '' && lightText !== '' && darkBg !== '' && darkText !== '';
+            const variablesDifferent = lightBg !== darkBg || lightText !== darkText;
+
+            logResult(
+                'Test 6: CSS Custom Properties',
+                variablesExist && variablesDifferent,
+                `Variables exist: ${variablesExist}, Light/Dark differ: ${variablesDifferent}. Light bg: ${lightBg}, Dark bg: ${darkBg}`
+            );
+        }
+
+        function runAllTests() {
+            results.length = 0; // Clear previous results
+
+            testDarkModeColors();
+            testToggleButtonRendering();
+            testHeaderLayout();
+            testColorTransitions();
+            testToggleButtonStyles();
+            testCSSVariables();
+
+            displayResults();
+        }
+
+        // Manual theme toggle for testing
+        document.getElementById('toggle-theme').addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark-mode');
+        });
+
+        document.getElementById('run-tests').addEventListener('click', runAllTests);
+
+        // Run tests automatically on page load
+        window.addEventListener('load', () => {
+            setTimeout(runAllTests, 500);
+        });
+    </script>
+</body>
+</html>

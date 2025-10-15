@@ -1,0 +1,16 @@
+# Task Assignments for Light & Dark Mode Theme Toggle Spec
+# Generated: 2025-10-15
+# Maps task groups from tasks.md to implementer roles from implementers.yml
+
+task_assignments:
+  - task_group: "Task Group 1: CSS Enhancements and Theme Toggle Styling"
+    assigned_subagent: "ui-designer"
+
+  - task_group: "Task Group 2: Theme Detection and Application Logic"
+    assigned_subagent: "ui-designer"
+
+  - task_group: "Task Group 3: Theme Toggle Button Integration"
+    assigned_subagent: "ui-designer"
+
+  - task_group: "Task Group 4: Integration Testing & Manual Verification"
+    assigned_subagent: "testing-engineer"
