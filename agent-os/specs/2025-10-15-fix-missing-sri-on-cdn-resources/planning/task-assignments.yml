@@ -1,0 +1,21 @@
+# Task Assignments for Fix Missing SRI on CDN Resources
+# Generated: 2025-10-15
+
+task_assignments:
+  - task_group: "Task Group 1: Directory Structure Setup"
+    assigned_subagent: "ui-designer"
+
+  - task_group: "Task Group 2: Self-Host Tailwind CSS"
+    assigned_subagent: "ui-designer"
+
+  - task_group: "Task Group 3: Self-Host Google Fonts"
+    assigned_subagent: "ui-designer"
+
+  - task_group: "Task Group 4: Add SRI Hashes to CDN Resources"
+    assigned_subagent: "ui-designer"
+
+  - task_group: "Task Group 5: Update Service Worker"
+    assigned_subagent: "ui-designer"
+
+  - task_group: "Task Group 6: Documentation and Testing"
+    assigned_subagent: "testing-engineer"

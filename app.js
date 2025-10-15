@@ -44,14 +44,14 @@ const resourceIcons = {
         'Tränke': 'ra ra-potion',
         'Wundhaken': 'fas fa-hand-holding-medical',
         'Skalpell': 'fas fa-cut',
-        'Mörser': 'material-icons:science'
+        'Mörser': 'fas fa-mortar-pestle'
     },
     knappe: {
         'Axt': 'ra ra-axe',
         'Helm': 'ra ra-helmet',
         'Rüstung': 'ra ra-vest',
-        'Schleifstein': 'material-icons:build',
-        'Kettenringe': 'material-icons:link',
+        'Schleifstein': 'fas fa-hammer',
+        'Kettenringe': 'fas fa-link',
         'Schwert': 'ra ra-sword',
         'Schild': 'ra ra-shield',
         'Trophäen': 'fas fa-trophy'
@@ -262,14 +262,7 @@ function createResourceCard(category, resource) {
     const iconContainer = document.createElement('div');
     iconContainer.className = 'resource-icon';
     const iconClass = getResourceIcon(category, resource);
-
-    // Handle material icons format (library:iconname)
-    if (iconClass.startsWith('material-icons:')) {
-        const iconName = iconClass.split(':')[1];
-        iconContainer.innerHTML = `<span class="material-icons">${iconName}</span>`;
-    } else {
-        iconContainer.innerHTML = `<i class="${iconClass}"></i>`;
-    }
+    iconContainer.innerHTML = `<i class="${iconClass}"></i>`;
 
     const resourceName = document.createElement('span');
     resourceName.className = 'resource-name';

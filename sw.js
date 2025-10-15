@@ -1,5 +1,5 @@
-// Service Worker für Goblinstadt Ressourcen Manager - iOS optimiert mit CDN Support
-const CACHE_NAME = 'goblinstadt-cache-v4';
+// Service Worker für Goblinstadt Ressourcen Manager - Fully self-hosted, no CDN dependencies
+const CACHE_NAME = 'goblinstadt-cache-v9';
 const APP_PREFIX = 'goblinstadt-';
 
 // Liste ALLER Ressourcen, die gecacht werden müssen
@@ -12,12 +12,24 @@ const urlsToCache = [
   './icon-192x192.png',
   './icon-512x512.png',
   './sw.js',
-  // CDN Ressourcen
-  'https://cdn.tailwindcss.com',
-  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
-  'https://cdnjs.cloudflare.com/ajax/libs/rpg-awesome/0.2.0/css/rpg-awesome.min.css',
-  'https://fonts.googleapis.com/icon?family=Material+Icons',
-  'https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap'
+  // Self-hosted Tailwind CSS
+  './assets/vendor/tailwind/tailwind-play.js',
+  // Self-hosted Google Fonts
+  './assets/vendor/fonts/fonts.css',
+  './assets/vendor/fonts/roboto-regular.woff2',
+  './assets/vendor/fonts/roboto-bold.woff2',
+  './assets/vendor/fonts/cinzel-regular.woff2',
+  './assets/vendor/fonts/cinzel-semibold.woff2',
+  './assets/vendor/fonts/cinzel-bold.woff2',
+  // Self-hosted Font Awesome
+  './assets/vendor/font-awesome/css/all.min.css',
+  './assets/vendor/font-awesome/webfonts/fa-brands-400.woff2',
+  './assets/vendor/font-awesome/webfonts/fa-regular-400.woff2',
+  './assets/vendor/font-awesome/webfonts/fa-solid-900.woff2',
+  './assets/vendor/font-awesome/webfonts/fa-v4compatibility.woff2',
+  // Self-hosted RPG Awesome
+  './assets/vendor/rpg-awesome/css/rpg-awesome.min.css',
+  './assets/vendor/rpg-awesome/fonts/rpgawesome-webfont.woff'
 ];
 
 // Installation des Service Workers mit sofortiger Aktivierung
@@ -76,48 +88,10 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Hybride Strategie: Cache-First für lokale, Network-First mit Cache-Fallback für CDN
+// Cache-First-Strategie für alle Ressourcen (100% self-hosted, keine CDN-Abhängigkeit)
 self.addEventListener('fetch', (event) => {
   const { request } = event;
-  const url = new URL(request.url);
 
-  // Für externe CDN-Ressourcen: Network-First mit Cache-Fallback
-  if (url.origin !== location.origin) {
-    event.respondWith(
-      fetch(request)
-        .then(response => {
-          // Wenn erfolgreich, Cache aktualisieren
-          if (response.ok) {
-            const responseClone = response.clone();
-            caches.open(CACHE_NAME).then(cache => {
-              cache.put(request, responseClone);
-            });
-          }
-          return response;
-        })
-        .catch(() => {
-          // Bei Netzwerkfehler: Aus Cache servieren
-          return caches.match(request)
-            .then(cachedResponse => {
-              if (cachedResponse) {
-                console.log('[ServiceWorker] Serving CDN resource from cache:', request.url);
-                return cachedResponse;
-              }
-              // Fallback für nicht gecachte externe Ressourcen
-              return new Response('CDN resource unavailable offline', {
-                status: 503,
-                statusText: 'Service Unavailable',
-                headers: new Headers({
-                  'Content-Type': 'text/plain'
-                })
-              });
-            });
-        })
-    );
-    return;
-  }
-
-  // Für lokale App-Ressourcen: Aggressive Cache-First-Strategie
   event.respondWith(
     caches.match(request)
       .then((response) => {
