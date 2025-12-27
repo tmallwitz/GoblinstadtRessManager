@@ -93,9 +93,16 @@ function getSystemTheme() {
     return 'light';
 }
 
-// Load saved theme preference from localStorage
+// Load saved theme preference from localStorage with validation
 function loadThemePreference() {
-    return localStorage.getItem(THEME_STORAGE_KEY);
+    const theme = localStorage.getItem(THEME_STORAGE_KEY);
+    // Validate theme is a known value
+    if (theme && !['light', 'dark'].includes(theme)) {
+        console.warn('[Security] Invalid theme preference detected, removing');
+        localStorage.removeItem(THEME_STORAGE_KEY);
+        return null;
+    }
+    return theme;
 }
 
 // Save theme preference to localStorage or remove if null
@@ -185,17 +192,48 @@ function saveState() {
     localStorage.setItem('goblinstadt-active-tab', activeCategory);
 }
 
-// Function to load state from localStorage
-function loadState() {
-    const savedState = localStorage.getItem('goblinstadt-resources');
-
-    // Load active tab
-    const savedTab = localStorage.getItem('goblinstadt-active-tab');
-    if (savedTab) {
-        activeCategory = savedTab;
+// Function to validate state schema
+function isValidState(state) {
+    if (!state || typeof state !== 'object') return false;
+    for (const category of Object.keys(resourceTypes)) {
+        if (!state[category] || typeof state[category] !== 'object') return false;
+        for (const resource of resourceTypes[category]) {
+            if (typeof state[category][resource] !== 'number' || state[category][resource] < 0) {
+                return false;
+            }
+        }
     }
+    return true;
+}
 
-    return savedState ? JSON.parse(savedState) : null;
+// Function to load state from localStorage with error handling
+function loadState() {
+    try {
+        const savedState = localStorage.getItem('goblinstadt-resources');
+
+        // Load and validate active tab
+        const savedTab = localStorage.getItem('goblinstadt-active-tab');
+        if (savedTab && Object.keys(resourceTypes).includes(savedTab)) {
+            activeCategory = savedTab;
+        }
+
+        if (!savedState) return null;
+
+        const parsedState = JSON.parse(savedState);
+
+        // Validate state schema before returning
+        if (!isValidState(parsedState)) {
+            console.warn('[Security] Invalid state schema detected, resetting to default');
+            localStorage.removeItem('goblinstadt-resources');
+            return null;
+        }
+
+        return parsedState;
+    } catch (e) {
+        console.error('[Security] Failed to load state:', e);
+        localStorage.removeItem('goblinstadt-resources');
+        return null;
+    }
 }
 
 // Animation-Hilfsfunktion: Fügt eine CSS-Animation-Klasse hinzu und entfernt sie nach Ablauf
@@ -647,7 +685,11 @@ function importCSV(file) {
             // Process each category in this row
             categories.forEach(category => {
                 const resourceName = columns[category.columnIndex]?.trim();
-                const resourceCount = parseInt(columns[category.columnIndex + 1]) || 0;
+                const rawCount = parseInt(columns[category.columnIndex + 1]);
+                // Validate and sanitize count: must be a valid number, non-negative, reasonable max
+                const resourceCount = (!isNaN(rawCount) && rawCount >= 0 && rawCount <= 999999)
+                    ? rawCount
+                    : 0;
 
                 // Only update if we have a resource name and it's valid
                 if (resourceName && resourceTypes[category.id].includes(resourceName)) {
